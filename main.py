@@ -31,7 +31,9 @@ def active_loop():
 			s.send("PONG :tmi.twitch.tv\r\n".encode("utf-8"))
 			print("Pong")
 		else:
-			username = re.search(r"\w+", line).group(0)  # Return the entire match
-			message = CHAT_MSG.sub("", line)
+			username = re.search(r"\w+", response).group(0)  # Return the entire match
+			message = CHAT_MSG.sub("", response)
 			print(username + ": " + message)
 			time.sleep(1 / config.RATE)
+
+active_loop()
