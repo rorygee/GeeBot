@@ -6,7 +6,7 @@ import re
 CHAT_MSG = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 
 def chat(sock, msg):
-	sock.send("PRIVMSG #{} :{}".format(cfg.CHAN, msg))
+	sock.send("PRIVMSG #{} :{}".format(config.CHAN, msg))
 def ban(sock, user):
 	chat(sock, ".ban {}".format(user))
 def timeout(sock, user, secs=60):
@@ -14,10 +14,10 @@ def timeout(sock, user, secs=60):
 
 try:
 	s = socket.socket()
-	s.connect((HOST, PORT))
-	s.send("PASS {}\r\n".format(PASS).encode("utf-8"))
-	s.send("NICK {}\r\n".format(NICK).encode("utf-8"))
-	s.send("JOIN {}\r\n".format(CHAN).encode("utf-8"))
+	s.connect((config.HOST, config.PORT))
+	s.send("PASS {}\r\n".format(config.PASS).encode("utf-8"))
+	s.send("NICK {}\r\n".format(config.NICK).encode("utf-8"))
+	s.send("JOIN {}\r\n".format(config.CHAN).encode("utf-8"))
 	connected = True	# Socket is connected
 
 except Exception as e:
