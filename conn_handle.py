@@ -29,7 +29,7 @@ def active_loop():
 			message = CHAT_MSG.sub("", response)
 			print(username + ": " + message)
 			if re.match(config.CMDP, message[0]): # Checks for specified command character
-				main.check_command(username, message)
+				main.valid_command(username, message)
 			time.sleep(1 / config.RATE)
 
 active_loop()
