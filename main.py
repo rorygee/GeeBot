@@ -14,5 +14,8 @@ def timeout(sock, user, secs=60):
 	chat(".timeout {}".format(user, secs))
 
 def check_command(user, message):
-	command = re.search('(?<=\!)\w+', message)
-	chat(command.group(0))
+	command = re.search("(?<=\{0})\w+".format(config.CMDP), message)
+	if command:
+		chat("'"+command.group(0)+"' is not a valid command GeeFaceNoSpace")
+	else:
+		chat("Put in a command dummy KappaGee")
