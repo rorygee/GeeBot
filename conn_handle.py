@@ -28,7 +28,7 @@ def active_loop():
 			username = re.search(r"\w+", response).group(0)
 			message = CHAT_MSG.sub("", response)
 			print(username + ": " + message)
-			if re.match(config.CMDP, message[0]):
+			if re.match(config.CMDP, message[0]): # Checks for specified command character
 				main.check_command(username, message)
 			time.sleep(1 / config.RATE)
 

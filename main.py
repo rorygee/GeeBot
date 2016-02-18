@@ -14,4 +14,5 @@ def timeout(sock, user, secs=60):
 	chat(".timeout {}".format(user, secs))
 
 def check_command(user, message):
-	chat("Commands to be implemented in the near future")
+	command = re.search('(?<=\!)\w+', message)
+	chat(command.group(0))
