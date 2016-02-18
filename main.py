@@ -36,6 +36,8 @@ def active_loop():
 			username = re.search(r"\w+", response).group(0)
 			message = CHAT_MSG.sub("", response)
 			print(username + ": " + message)
+			if re.match(config.CMDP, message[0]):
+				chat("Commands to be implemented in the near future")
 			time.sleep(1 / config.RATE)
 
 active_loop()
