@@ -21,7 +21,7 @@ def retrieve_mods():
 		main.chat("Twitch messed up KappaGee")
 		return
 
-def perform_command(user, message, command):
+def perform_command(user, message, command, response):
 	messageList = message.split()
 	if messageList[0] == "!mods":
 		modsOnline = retrieve_mods()
@@ -35,6 +35,6 @@ def perform_command(user, message, command):
 			else:
 				main.chat("mods are offline, post FrankerZ")
 	elif messageList[0] == "!points":
-		points.points_command(user, messageList)
+		points.points_command(user, messageList, response)
 	else:
 		main.chat("'"+command.group(0)+"' is not a valid command GeeFaceNoSpace")
