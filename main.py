@@ -3,13 +3,13 @@ import socket
 import time
 import re
 import conn_handle
+import command_list
 import urllib.request
 import urllib.error
 import json
-import command_list
 
 def chat(msg):
-	conn_handle.s.send(bytes('PRIVMSG %s :%s\r\n' % (config.CHAN, msg), 'UTF-8'))
+	conn_handle.s.send(bytes('PRIVMSG %s :%s\r\n' % ("#"+config.CHAN, msg), 'UTF-8'))
 
 def ban(sock, user):
 	chat(".ban {}".format(user))
