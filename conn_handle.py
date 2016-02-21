@@ -13,6 +13,7 @@ try:
 	s.send("NICK {}\r\n".format(config.NICK).encode("utf-8"))
 	main.CAP_REQ()
 	s.send("JOIN {}\r\n".format("#"+config.CHAN).encode("utf-8"))
+	s.send("JOIN {}\r\n".format("#"+config.NICK).encode("utf-8"))
 	main.chat("I'm here 4Head")
 	connected = True	# Socket is connected
 
