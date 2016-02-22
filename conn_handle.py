@@ -10,7 +10,7 @@ if os.path.exists("Authorised_Channels.txt"):
 else:
 	channelFile = open("Authorised_Channels.txt","w+")
 	channelFile.close()
-channelFile = open("Authorised_Channels.txt","r")
+#channelFile = open("Authorised_Channels.txt","r")
 
 CHAT_MSG = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 

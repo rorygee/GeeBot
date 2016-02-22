@@ -21,7 +21,14 @@ def retrieve_mods(channel):
 		return
 
 def add_channel(user):
-	main.chat("Thanks fam", user)
+	channelFile = open("Authorised_Channels.txt","a+")
+	if user in channelFile:
+		main.chat("Come on, you can't adopt me again OpieOP", config.NICK)
+	else:
+		channelFile.write(user+"\n");
+		#s.send("JOIN {}\r\n".format("#"+user).encode("utf-8"))
+		main.chat("Thanks fam", user)
+	channelFile.close()
 
 def remove_channel(channel):
 	main.chat("Bye fam", channel)
