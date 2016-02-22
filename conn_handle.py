@@ -19,9 +19,11 @@ try:
 	s.send("PASS {}\r\n".format(config.PASS).encode("utf-8")) #Bot channel connect, replace with for loop with list
 	s.send("NICK {}\r\n".format(config.NICK).encode("utf-8")) #Bot host connect
 	main.CAP_REQ()
-	s.send("JOIN {}\r\n".format("#"+config.CHAN).encode("utf-8"))
 	s.send("JOIN {}\r\n".format("#"+config.NICK).encode("utf-8"))
-	#channelFile = open("Authorised_Channels.txt","r")# implement for loop for joining channels 
+	channelFile = open("Authorised_Channels.txt","r")# implement for loop for joining channels
+	for line in channelFile:
+		channel = line.lower()
+		s.send("JOIN {}\r\n".format("#"+channel).encode("utf-8"))
 	connected = True	# Socket is connected
 
 except Exception as e:
@@ -42,7 +44,7 @@ def active_loop():
 			user = reName[0:len(reName)-1]
 			message = reMessage.group(3)
 			channel = reMessage.group(2)
-			print(username+": "+message)
+			print(user+": "+message)
 			if re.match(config.CMDP, message[0]): # Checks for specified command character
 				main.valid_command(user, channel, message, response)
 			time.sleep(1 / config.RATE)

@@ -5,7 +5,6 @@ import conn_handle
 import urllib.request
 import urllib.error
 import json
-import re
 import main
 import points
 
@@ -29,7 +28,7 @@ def add_channel(user):
 	else:
 		channelFile = open("Authorised_Channels.txt","a+")
 		channelFile.write(user+"\n");
-		#s.send("JOIN {}\r\n".format("#"+user).encode("utf-8"))
+		s.send("JOIN {}\r\n".format("#"+user).encode("utf-8"))
 		main.chat("Thanks fam", user)
 	channelFile.close()
 
