@@ -10,7 +10,6 @@ if os.path.exists("Authorised_Channels.txt"):
 else:
 	channelFile = open("Authorised_Channels.txt","w+")
 	channelFile.close()
-#channelFile = open("Authorised_Channels.txt","r")
 
 CHAT_MSG = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 
@@ -22,6 +21,7 @@ try:
 	main.CAP_REQ()
 	s.send("JOIN {}\r\n".format("#"+config.CHAN).encode("utf-8"))
 	s.send("JOIN {}\r\n".format("#"+config.NICK).encode("utf-8"))
+	#channelFile = open("Authorised_Channels.txt","r")# implement for loop for joining channels 
 	connected = True	# Socket is connected
 
 except Exception as e:
@@ -39,12 +39,12 @@ def active_loop():
 			print(response)
 			reMessage = re.search(r"(PRIVMSG #(.*?) :(.*))", response)
 			reName = str(re.search(r"(display-name=(.*?;))", response).group(2))
-			username = reName[0:len(reName)-1]
+			user = reName[0:len(reName)-1]
 			message = reMessage.group(3)
 			channel = reMessage.group(2)
 			print(username+": "+message)
 			if re.match(config.CMDP, message[0]): # Checks for specified command character
-				main.valid_command(username, channel, message, response)
+				main.valid_command(user, channel, message, response)
 			time.sleep(1 / config.RATE)
 		else:
 			print(response)

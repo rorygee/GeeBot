@@ -33,8 +33,10 @@ def add_channel(user):
 		main.chat("Thanks fam", user)
 	channelFile.close()
 
-def remove_channel(channel):
-	main.chat("Bye fam", channel)
+def remove_channel(user):
+	users = open('Authorised_Channels.txt', 'r').read()
+	userExists = re.search(r"(\{0}\n)|(^{0}\n)".format(user), users)
+	main.chat("Bye fam", user)
 
 def perform_command(user, channel, message, command, response):
 	messageList = message.split()

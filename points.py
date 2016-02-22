@@ -4,7 +4,7 @@ import conn_handle
 import command_list
 import main
 
-def points_command(user, channel, messageList,response):
+def points_command(user, channel, messageList, response):
 	if len(messageList) > 1:
 		if messageList[1] == "send":
 			main.chat("Send points pls", channel)
