@@ -4,11 +4,19 @@ import re
 import conn_handle
 import urllib.request
 import urllib.error
+import socket
 import json
 import main
 import points
 
 modsOnline = ""
+try:
+	s = socket.socket()
+	s.connect((config.HOST, config.PORT))
+	connected = True	# Socket is connected
+except Exception as e:
+	print(str(e))
+	connected = False	# Socket connection failed
 
 def retrieve_mods(channel):
 	try:
@@ -30,7 +38,7 @@ def add_channel(user):
 		channelFile.write(user+"\n");
 		s.send("JOIN {}\r\n".format("#"+user).encode("utf-8"))
 		main.chat("Thanks fam", user)
-	channelFile.close()
+		channelFile.close()
 
 def remove_channel(user):
 	users = open('Authorised_Channels.txt', 'r').read()
