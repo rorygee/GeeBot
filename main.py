@@ -15,18 +15,18 @@ def CAP_REQ():
 	conn_handle.s.send(bytes('CAP REQ :twitch.tv/commands\n', 'UTF-8'))
 	conn_handle.s.send(bytes('CAP REQ :twitch.tv/tags\n', 'UTF-8'))
 
-def chat(msg):
+def chat(msg, channel):
 	conn_handle.s.send(bytes('PRIVMSG %s :%s\r\n' % ("#"+channel, msg), 'UTF-8'))
 
-def ban(user):
+def ban(user, channel):
 	chat(".ban {}".format(user),channel)
 
-def timeout(user, secs=60):
+def timeout(user, channel, secs=60):
 	chat(".timeout {}".format(user, secs),channel)
 
-def valid_command(user, message, response):
+def valid_command(user, channel, message, response):
 	command = re.search("(?<=\{0})\w+".format(config.CMDP), message)
 	if command:
-		command_list.perform_command(user, message, command, response)
+		command_list.perform_command(user, channel, message, command, response)
 	else:
 		chat("Put in a command dummy KappaGee", channel)

@@ -22,7 +22,6 @@ try:
 	main.CAP_REQ()
 	s.send("JOIN {}\r\n".format("#"+config.CHAN).encode("utf-8"))
 	s.send("JOIN {}\r\n".format("#"+config.NICK).encode("utf-8"))
-	main.chat("I'm here 4Head")
 	connected = True	# Socket is connected
 
 except Exception as e:
@@ -45,7 +44,7 @@ def active_loop():
 			channel = reMessage.group(2)
 			print(username+": "+message)
 			if re.match(config.CMDP, message[0]): # Checks for specified command character
-				main.valid_command(username, message,response)
+				main.valid_command(username, channel, message, response)
 			time.sleep(1 / config.RATE)
 		else:
 			print(response)

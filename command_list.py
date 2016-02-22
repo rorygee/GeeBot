@@ -1,6 +1,5 @@
 import config
 import socket
-import time
 import re
 import conn_handle
 import urllib.request
@@ -11,30 +10,30 @@ import points
 
 modsOnline = ""
 
-def retrieve_mods():
+def retrieve_mods(channel):
 	try:
-		j_obj = json.loads(urllib.request.urlopen('http://tmi.twitch.tv/group/user/'+config.CHAN+'/chatters', timeout = 15).read().decode('utf-8'))
+		j_obj = json.loads(urllib.request.urlopen('http://tmi.twitch.tv/group/user/'+channel+'/chatters', timeout = 15).read().decode('utf-8'))
 		modsOnline = j_obj['chatters']['moderators']
 		return(modsOnline)
 	except urllib.error.URLError as e:
 		print(e.reason)
-		main.chat("Twitch messed up KappaGee")
+		main.chat("Twitch messed up KappaGee", channel)
 		return
 
-def perform_command(user, message, command, response):
+def perform_command(user, channel, message, command, response):
 	messageList = message.split()
 	if messageList[0] == "!mods":
-		modsOnline = retrieve_mods()
+		modsOnline = retrieve_mods(channel)
 		if modsOnline is not None:
 			print(modsOnline)
 			if len(modsOnline) > 0:
 				modList = ""
 				for curMod in modsOnline:
 					modList = modList+curMod+", "
-				main.chat("Mods currently in chat: "+modList[0:(len(modList)-2)])
+				main.chat("Mods currently in chat: "+modList[0:(len(modList)-2)], channel)
 			else:
-				main.chat("mods are offline, post FrankerZ")
+				main.chat("mods are offline, post FrankerZ", channel)
 	elif messageList[0] == "!points":
-		points.points_command(user, messageList, response)
+		points.points_command(user, channel, messageList, response)
 	else:
-		main.chat("'"+command.group(0)+"' is not a valid command GeeFaceNoSpace")
+		main.chat("'"+command.group(0)+"' is not a valid command GeeFaceNoSpace", channel)
