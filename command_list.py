@@ -5,6 +5,7 @@ import conn_handle
 import urllib.request
 import urllib.error
 import json
+import re
 import main
 import points
 
@@ -21,10 +22,12 @@ def retrieve_mods(channel):
 		return
 
 def add_channel(user):
-	channelFile = open("Authorised_Channels.txt","a+")
-	if user in channelFile:
+	users = open('Authorised_Channels.txt', 'r').read()
+	userExists = re.search(r"(\{0}\n)|(^{0}\n)".format(user), users)
+	if userExists:
 		main.chat("Come on, you can't adopt me again OpieOP", config.NICK)
 	else:
+		channelFile = open("Authorised_Channels.txt","a+")
 		channelFile.write(user+"\n");
 		#s.send("JOIN {}\r\n".format("#"+user).encode("utf-8"))
 		main.chat("Thanks fam", user)
