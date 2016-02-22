@@ -3,6 +3,14 @@ import socket
 import time
 import re
 import main
+import os
+
+if os.path.exists("Authorised_Channels.txt"):
+	pass
+else:
+	channelFile = open("Authorised_Channels.txt","w+")
+	channelFile.close()
+channelFile = open("Authorised_Channels.txt","r")
 
 CHAT_MSG = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 
