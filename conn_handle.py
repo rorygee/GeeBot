@@ -38,7 +38,7 @@ def active_loop():
 		elif "PRIVMSG" in response:
 			print(response)
 			reMessage = re.search(r"(PRIVMSG #(.*?) :(.*))", response)
-			reName = str(re.search(r"(display-name=(.*?;))", response).group(0))
+			reName = str(re.search(r"(display-name=(.*?;))", response).group(2))
 			username = reName[0:len(reName)-1]
 			message = reMessage.group(3)
 			channel = reMessage.group(2)

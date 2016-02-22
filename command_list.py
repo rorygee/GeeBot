@@ -20,6 +20,12 @@ def retrieve_mods(channel):
 		main.chat("Twitch messed up KappaGee", channel)
 		return
 
+def add_channel(user):
+	main.chat("Thanks fam", user)
+
+def remove_channel(channel):
+	main.chat("Bye fam", channel)
+
 def perform_command(user, channel, message, command, response):
 	messageList = message.split()
 	if messageList[0] == "!mods":
@@ -35,5 +41,7 @@ def perform_command(user, channel, message, command, response):
 				main.chat("mods are offline, post FrankerZ", channel)
 	elif messageList[0] == "!points":
 		points.points_command(user, channel, messageList, response)
+	elif messageList[0] == "!adopt" and channel == config.NICK:
+		add_channel(user)
 	else:
 		main.chat("'"+command.group(0)+"' is not a valid command GeeFaceNoSpace", channel)
