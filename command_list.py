@@ -45,8 +45,7 @@ def remove_channel(user):
 	userExists = re.search(r"(\{0}\n)|(^{0}\n)".format(user), users)
 	main.chat("Bye fam", user)
 
-def perform_command(user, channel, message, command, response):
-	messageList = message.split()
+def perform_command(user, channel, messageList, response):
 	if messageList[0] == "!mods":
 		modsOnline = retrieve_mods(channel)
 		if modsOnline is not None:
@@ -63,4 +62,4 @@ def perform_command(user, channel, message, command, response):
 	elif messageList[0] == "!adopt" and channel == config.NICK:
 		add_channel(user)
 	else:
-		main.chat("'"+command.group(0)+"' is not a valid command GeeFaceNoSpace", channel)
+		main.chat("'"+messageList[0][1:len(messageList[0])]+"' is not a valid command GeeFaceNoSpace", channel)

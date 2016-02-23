@@ -43,10 +43,11 @@ def active_loop():
 			reName = str(re.search(r"(display-name=(.*?;))", response).group(2))
 			user = reName[0:len(reName)-1]
 			message = reMessage.group(3)
+			messageList = message.split()
 			channel = reMessage.group(2)
 			print(user+": "+message)
 			if re.match(config.CMDP, message[0]): # Checks for specified command character
-				main.valid_command(user, channel, message, response)
+				main.valid_command(user, channel, messageList, response)
 			time.sleep(1 / config.RATE)
 		else:
 			print(response)

@@ -24,9 +24,9 @@ def ban(user, channel):
 def timeout(user, channel, secs=60):
 	chat(".timeout {}".format(user, secs),channel)
 
-def valid_command(user, channel, message, response):
-	command = re.search("(?<=\{0})\w+".format(config.CMDP), message)
+def valid_command(user, channel, messageList, response):
+	command = re.search("(?<=\{0})\w+".format(config.CMDP), messageList[0])
 	if command:
-		command_list.perform_command(user, channel, message, command, response)
+		command_list.perform_command(user, channel, messageList, response)
 	else:
 		chat("Put in a command dummy KappaGee", channel)
