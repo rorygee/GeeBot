@@ -27,4 +27,4 @@ def valid_command(user, channel, messageList, response):
 	if command:
 		command_list.perform_command(user, channel, messageList, response)
 	else:
-		chat("Put in a command dummy KappaGee", channel)
+		chat("Blank is not a valid command", channel)

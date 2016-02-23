@@ -10,6 +10,7 @@ import main
 import points
 
 modsOnline = ""
+
 try:
 	s = socket.socket()
 	s.connect((config.HOST, config.PORT))
@@ -56,6 +57,7 @@ def remove_channel(user):
 		s.send("LEAVE {}\r\n".format("#"+user).encode("utf-8"))
 	else:
 		main.chat("You can't remove me if I wasn't there to begin with 4Head", config.NICK)
+
 
 def perform_command(user, channel, messageList, response):
 	if messageList[0] == "!mods":

@@ -22,8 +22,7 @@ try:
 	s.send("JOIN {}\r\n".format("#"+config.NICK).encode("utf-8"))
 	channelFile = open("Authorised_Channels.txt","r")# implement for loop for joining channels
 	for line in channelFile:
-		channel = line.lower()
-		s.send("JOIN {}\r\n".format("#"+channel).encode("utf-8"))
+		s.send("JOIN {}\r\n".format("#"+line).encode("utf-8"))
 	connected = True	# Socket is connected
 
 except Exception as e:
@@ -41,7 +40,7 @@ def active_loop():
 			print(response)
 			reMessage = re.search(r"(PRIVMSG #(.*?) :(.*))", response)
 			reName = str(re.search(r"(display-name=(.*?;))", response).group(2))
-			user = reName[0:len(reName)-1]
+			user = reName[0:len(reName)-1].lower()
 			message = reMessage.group(3)
 			messageList = message.split()
 			channel = reMessage.group(2)
