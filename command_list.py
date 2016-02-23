@@ -37,13 +37,25 @@ def add_channel(user):
 		channelFile = open("Authorised_Channels.txt","a+")
 		channelFile.write(user+"\n");
 		s.send("JOIN {}\r\n".format("#"+user).encode("utf-8"))
-		main.chat("Thanks fam", user)
+		main.chat("Hey, I'm here now 4Head", user)
 		channelFile.close()
 
 def remove_channel(user):
 	users = open('Authorised_Channels.txt', 'r').read()
 	userExists = re.search(r"(\{0}\n)|(^{0}\n)".format(user), users)
-	main.chat("Bye fam", user)
+	if userExists:
+		channelFile = open("Authorised_Channels.txt","r")
+		lines = channelFile.readlines()
+		channelFile.close()
+		channelFile = open("Authorised_Channels.txt","w")
+		for line in lines:
+			if line!=user+"\n":
+				channelFile.write(line)
+			channelFile.close()
+		main.chat("I'm gone now BibleThump",config.NICK)
+		s.send("LEAVE {}\r\n".format("#"+user).encode("utf-8"))
+	else:
+		main.chat("You can't remove me if I wasn't there to begin with 4Head", config.NICK)
 
 def perform_command(user, channel, messageList, response):
 	if messageList[0] == "!mods":
@@ -61,5 +73,7 @@ def perform_command(user, channel, messageList, response):
 		points.points_command(user, channel, messageList, response)
 	elif messageList[0] == "!adopt" and channel == config.NICK:
 		add_channel(user)
+	elif messageList[0] == "!abandon" and channel == config.NICK:
+		remove_channel(user)
 	else:
 		main.chat("'"+messageList[0][1:len(messageList[0])]+"' is not a valid command GeeFaceNoSpace", channel)
