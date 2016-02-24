@@ -13,13 +13,19 @@ else:
 
 CHAT_MSG = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 
+def join_channel(channel):
+	s.send("JOIN {}\r\n".format("#"+channel).encode("utf-8"))
+
+def leave_channel(channel):
+	s.send("PART {}\r\n".format("#"+channel).encode("utf-8"))
+
 try:
 	s = socket.socket()
 	s.connect((config.HOST, config.PORT))
 	s.send("PASS {}\r\n".format(config.PASS).encode("utf-8")) #Bot channel connect, replace with for loop with list
 	s.send("NICK {}\r\n".format(config.NICK).encode("utf-8")) #Bot host connect
 	main.CAP_REQ()
-	s.send("JOIN {}\r\n".format("#"+config.NICK).encode("utf-8"))
+	join_channel(config.NICK)
 	channelFile = open("Authorised_Channels.txt","r")# implement for loop for joining channels
 	for line in channelFile:
 		s.send("JOIN {}\r\n".format("#"+line).encode("utf-8"))
