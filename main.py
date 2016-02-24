@@ -8,11 +8,6 @@ import urllib.request
 import urllib.error
 import json
 
-def CAP_REQ():
-#	conn_handle.s.send(bytes('CAP REQ :twitch.tv/membership\n', 'UTF-8')) borks connection, will fix later
-	conn_handle.s.send(bytes('CAP REQ :twitch.tv/commands\n', 'UTF-8'))
-	conn_handle.s.send(bytes('CAP REQ :twitch.tv/tags\n', 'UTF-8'))
-
 def chat(msg, channel):
 	conn_handle.s.send(bytes('PRIVMSG %s :%s\r\n' % ("#"+channel, msg), 'UTF-8'))
 

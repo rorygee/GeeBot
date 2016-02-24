@@ -13,6 +13,10 @@ else:
 
 CHAT_MSG = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 
+def CAP_REQ():
+	s.send(bytes('CAP REQ :twitch.tv/commands\n', 'UTF-8'))
+	s.send(bytes('CAP REQ :twitch.tv/tags\n', 'UTF-8'))
+
 def join_channel(channel):
 	s.send("JOIN {}\r\n".format("#"+channel).encode("utf-8"))
 
@@ -24,7 +28,7 @@ try:
 	s.connect((config.HOST, config.PORT))
 	s.send("PASS {}\r\n".format(config.PASS).encode("utf-8")) #Bot channel connect, replace with for loop with list
 	s.send("NICK {}\r\n".format(config.NICK).encode("utf-8")) #Bot host connect
-	main.CAP_REQ()
+	CAP_REQ()
 	join_channel(config.NICK)
 	channelFile = open("Authorised_Channels.txt","r")# implement for loop for joining channels
 	for line in channelFile:
