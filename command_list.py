@@ -1,21 +1,11 @@
 import config
-import socket
 import re
 import conn_handle
 import urllib.request
 import urllib.error
-import socket
 import json
 import main
 import points
-
-try:
-	s = socket.socket()
-	s.connect((config.HOST, config.PORT))
-	connected = True	# Socket is connected
-except Exception as e:
-	print(str(e))
-	connected = False	# Socket connection failed
 
 def retrieve_mods(channel):
 	try:
@@ -63,7 +53,6 @@ def remove_channel(user):
 		conn_handle.leave_channel(user)
 	else:
 		main.chat("You can't remove me if I wasn't there to begin with 4Head", config.NICK)
-
 
 def perform_command(user, channel, messageList, response):
 	if messageList[0] == "!mods":

@@ -1,8 +1,8 @@
 import config
+import main
 import socket
 import time
 import re
-import main
 import os
 
 if os.path.exists("Authorised_Channels.txt"):
@@ -39,7 +39,6 @@ except Exception as e:
 	print(str(e))
 	connected = False	# Socket connection failed
 
-
 def active_loop():
 	while connected:
 		response = s.recv(1024).decode("utf-8")
@@ -47,14 +46,13 @@ def active_loop():
 			s.send("PONG :tmi.twitch.tv\r\n".encode("utf-8"))	# Sending pong
 			print(config.NICK + ": Pong")	# Showing pong in console
 		elif "PRIVMSG" in response:
-			print(response)
 			reMessage = re.search(r"(PRIVMSG #(.*?) :(.*))", response)
 			reName = str(re.search(r"(display-name=(.*?;))", response).group(2))
 			user = reName[0:len(reName)-1].lower()
 			message = reMessage.group(3)
 			messageList = message.split()
 			channel = reMessage.group(2)
-			print(user+": "+message)
+			print(channel+";"+user+": "+message)
 			if re.match(config.CMDP, message[0]): # Checks for specified command character
 				main.valid_command(user, channel, messageList, response)
 			time.sleep(1 / config.RATE)

@@ -1,12 +1,7 @@
 import config
-import socket
-import time
 import re
 import conn_handle
 import command_list
-import urllib.request
-import urllib.error
-import json
 
 def chat(msg, channel):
 	conn_handle.s.send(bytes('PRIVMSG %s :%s\r\n' % ("#"+channel, msg), 'UTF-8'))

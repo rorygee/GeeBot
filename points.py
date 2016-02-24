@@ -1,7 +1,5 @@
 import config
 import re
-import conn_handle
-import command_list
 import main
 
 def points_add_command(user, channel, messageList, response):
