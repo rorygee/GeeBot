@@ -5,7 +5,26 @@ import urllib.request
 import urllib.error
 import json
 import main
-import points
+
+def points_add(user, channel, messageList, response):
+	isMod = re.search(r"(mod=)(.*?);",response).group(2)
+	if isMod == "1":
+		main.chat("Points were added... somehow", channel)
+	else:
+		main.chat("You don't have the permission to send points OpieOP", channel)
+
+def points_remove(user, channel, messageList, response):
+	isMod = re.search(r"(mod=)(.*?);",response).group(2)
+	if isMod == "1":
+		main.chat("Points were removed... somehow", channel)
+	else:
+		main.chat("You don't have the permission to remove points OpieOP", channel)
+
+def points_send(user, channel, messageList):
+	main.chat("Send points pls", channel)
+
+def points_help():
+	main.chat("Syntax: !points [send/add] [user] [amount]", channel)
 
 def retrieve_mods(channel):
 	try:
@@ -54,11 +73,24 @@ def remove_channel(user):
 	else:
 		main.chat("You can't remove me if I wasn't there to begin with 4Head", config.NICK)
 
+def points_command(user, channel, messageList, response):
+	if len(messageList) > 1:
+		if messageList[1] == "send":
+			points_send(user, channel, messageList)
+		elif messageList[1] == "add":
+			points_add(user, channel, messageList, response)
+		elif messageList[1] == "remove":
+			points_remove(user, channel, messageList, response)
+		elif messageList[1] == "help":
+			points_help()
+	else:
+		main.chat(user+": 0 4Head", channel)
+
 def perform_command(user, channel, messageList, response):
 	if messageList[0] == "!mods":
 		retrieve_mods(channel)
 	elif messageList[0] == "!points":
-		points.points_command(user, channel, messageList, response)
+		points_command(user, channel, messageList, response)
 	elif messageList[0] == "!adopt" and channel == config.NICK:
 		add_channel(user)
 	elif messageList[0] == "!abandon" and channel == config.NICK:
