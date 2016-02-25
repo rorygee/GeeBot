@@ -2,7 +2,14 @@ import config
 import re
 import conn_handle
 import command_list
+import time
 
+'''
+def cooldown(lastTime):
+	thisTime = int(round(time.time() * 1000))
+	if lastTime > thisTime:
+		time.sleep(1) # need to work out calculation for this
+'''
 def chat(msg, channel):
 	conn_handle.s.send(bytes('PRIVMSG %s :%s\r\n' % ("#"+channel, msg), 'UTF-8'))
 

@@ -7,14 +7,14 @@ import json
 import main
 
 def points_add(user, channel, messageList, response):
-	isMod = re.search(r"(mod=)(.*?);",response).group(2)
+	isMod = re.search(r"(mod=)(.*?);",response).group(2) # grabs for mod status from raw message
 	if isMod == "1":
 		main.chat("Points were added... somehow", channel)
 	else:
 		main.chat("You don't have the permission to send points OpieOP", channel)
 
 def points_remove(user, channel, messageList, response):
-	isMod = re.search(r"(mod=)(.*?);",response).group(2)
+	isMod = re.search(r"(mod=)(.*?);",response).group(2) # grabs for mod status from raw message
 	if isMod == "1":
 		main.chat("Points were removed... somehow", channel)
 	else:

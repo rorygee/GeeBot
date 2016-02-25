@@ -19,6 +19,7 @@ def CAP_REQ():
 
 def join_channel(channel):
 	s.send("JOIN {}\r\n".format("#"+channel).encode("utf-8"))
+	time.sleep(0.3) # Ensures that the bot joins within Twitch's limit (50 connections per 15 seconds)
 
 def leave_channel(channel):
 	s.send("PART {}\r\n".format("#"+channel).encode("utf-8"))
@@ -26,25 +27,25 @@ def leave_channel(channel):
 try:
 	s = socket.socket()
 	s.connect((config.HOST, config.PORT))
-	s.send("PASS {}\r\n".format(config.PASS).encode("utf-8")) #Bot channel connect, replace with for loop with list
-	s.send("NICK {}\r\n".format(config.NICK).encode("utf-8")) #Bot host connect
+	s.send("PASS {}\r\n".format(config.PASS).encode("utf-8"))
+	s.send("NICK {}\r\n".format(config.NICK).encode("utf-8"))
 	CAP_REQ()
 	join_channel(config.NICK)
-	channelFile = open("Authorised_Channels.txt","r")# implement for loop for joining channels
+	channelFile = open("Authorised_Channels.txt","r") # implement for loop for joining channels
 	for line in channelFile:
-		s.send("JOIN {}\r\n".format("#"+line).encode("utf-8"))
-	connected = True	# Socket is connected
+		join_channel(line)
+	connected = True # Socket is connected
 
 except Exception as e:
 	print(str(e))
-	connected = False	# Socket connection failed
+	connected = False # Socket connection failed
 
 def active_loop():
 	while connected:
 		response = s.recv(1024).decode("utf-8")
-		if response == "PING :tmi.twitch.tv\r\n":	# Detecting ping
-			s.send("PONG :tmi.twitch.tv\r\n".encode("utf-8"))	# Sending pong
-			print(config.NICK + ": Pong")	# Showing pong in console
+		if response == "PING :tmi.twitch.tv\r\n": # Detecting ping
+			s.send("PONG :tmi.twitch.tv\r\n".encode("utf-8")) # Sending pong
+			print(config.NICK + ": Pong") # Showing pong in console
 		elif "PRIVMSG" in response:
 			reMessage = re.search(r"(PRIVMSG #(.*?) :(.*))", response)
 			reName = str(re.search(r"(display-name=(.*?;))", response).group(2))
