@@ -1,5 +1,7 @@
 import sqlite3
 import os
+import main
+import conn_handle
 
 if os.path.exists("Channel_Database.db"):
 	conn = sqlite3.connect('Channel_Database.db')
@@ -10,7 +12,13 @@ else:
 	cur.executescript(
 	"""
 	CREATE TABLE channels
-	(channelName VARCHAR(25), Enabled BOOLEAN); 
+	(Channelname VARCHAR(25), Enabled BIT); 
 	CREATE TABLE sessions
-	(username VARCHAR(25), channelName VARCHAR(25), points INTEGER);
+	(Username VARCHAR(25), ChannelName VARCHAR(25), Points INTEGER);
 	""")
+
+def add_channel(user):
+
+		cur.execute("""INSERT INTO channels VALUES(?, 1)""", (user,))
+		conn_handle.join_channel(user)
+		main.chat("Hey, I'm here now 4Head", user)
