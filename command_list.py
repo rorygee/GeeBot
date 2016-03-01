@@ -1,6 +1,7 @@
 import config
 import re
 import conn_handle
+import db_handle
 import urllib.request
 import urllib.error
 import json
@@ -63,7 +64,7 @@ def perform_command(user, channel, messageList, response):
 	elif messageList[0] == "!points":
 		points_command(user, channel, messageList, response)
 	elif messageList[0] == "!adopt" and channel == config.NICK:
-		conn_handle.add_channel(user)
+		db_handle.add_channel(user)
 	elif messageList[0] == "!abandon" and channel == config.NICK:
 		conn_handle.remove_channel(user)
 	else:
