@@ -6,6 +6,8 @@ import time
 import re
 import os
 
+channels = ""
+
 if os.path.exists("Authorised_Channels.txt"):
 	pass
 else:
@@ -61,9 +63,10 @@ try:
 	s.send("NICK {}\r\n".format(config.NICK).encode("utf-8"))
 	CAP_REQ()
 	join_channel(config.NICK)
-	channelFile = open("Authorised_Channels.txt","r") # implement for loop for joining channels
-	for line in channelFile:
-		join_channel(line)
+	db_handle.init_channels(channels) # implement for loop for joining channels
+	print(channels)
+#	for line in channels:
+#		join_channel(line)
 	connected = True # Socket is connected
 
 except Exception as e:

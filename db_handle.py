@@ -17,8 +17,11 @@ else:
 	(Username VARCHAR(25), ChannelName VARCHAR(25), Points INTEGER);
 	""")
 
+def init_channels(channels):
+	cur.execute("""SELECT * FROM channels""")
+	channels = cur.fetchall()
 def add_channel(user):
 
-		cur.execute("""INSERT INTO channels VALUES(?, 1)""", (user,))
+		cur.execute("""INSERT OR IGNORE INTO channels VALUES(?, 1)""", (user,))
 		conn_handle.join_channel(user)
 		main.chat("Hey, I'm here now 4Head", user)
